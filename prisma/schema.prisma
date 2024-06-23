@@ -1,0 +1,55 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model User {
+    id           String             @unique @default(uuid())
+    name         String
+    plan         SubscriptionModels @default(FREE)
+    invitedCalls CallParticipant[]
+}
+
+enum SubscriptionModels {
+    FREE
+    PRO
+}
+
+model CallParticipant {
+    id Int @id
+
+    role   CallRoles @default(PARTICIPANT)
+    User   User?     @relation(fields: [userId], references: [id])
+    userId String?
+    Call   Call?     @relation(fields: [callId], references: [id])
+    callId String?
+}
+
+enum CallRoles {
+    HOST
+    MODERATOR
+    PARTICIPANT
+    SPEAKER // For virtual events
+    AUDIENCE // For virtual events
+}
+
+model Call {
+    id           String            @unique @default(uuid())
+    type         CallType          @default(REGULAR)
+    active       Boolean           @default(false)
+    timeStarted  DateTime
+    participants CallParticipant[]
+}
+
+enum CallType {
+    REGULAR
+    WEBINAR
+    VIRTUAL_EVENT
+}
