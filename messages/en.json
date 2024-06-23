@@ -1,0 +1,15 @@
+{
+	"Index": {
+		"product_name": "Concierge",
+		"tag_alert": "Let's get that meeting started.",
+		"call_link_advisory": "Use a call link to join an existing conversation.",
+		"new_call": "New call",
+		"switch_easily": "Switch easily",
+		"switch_easily_desc": "Transfer your calls to and from your smartphone without having to leave.",
+		"no_time_limit": "No time limit",
+		"no_time_limit_desc": "Stay connected for as long as you want without interruptions.",
+		"before_you_start": "Before you start",
+		"provide_information": "You need to provide some information before you start your call.",
+		"start": "Start"
+	}
+}

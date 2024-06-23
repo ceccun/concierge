@@ -1,0 +1,11 @@
+.field {
+	display: flex;
+	background-color: var(--secondary-colour);
+	padding: 12px;
+	border-radius: 12px;
+	width: 100%;
+	color: var(--secondary-contrast);
+	justify-content: flex-start;
+	align-items: center;
+	gap: 16px;
+}

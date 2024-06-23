@@ -1,13 +1,10 @@
 import { api } from "~/trpc/server";
+import { Button } from "./_components/button";
+import { CalendarPlus2Icon, VideoIcon } from "lucide-react";
+import { ButtonTypes } from "./const/buttons";
+import { redirect } from "next/dist/server/api-utils";
+import { permanentRedirect } from "next/navigation";
 
 export default async function Home() {
-  const hello = await api.user.create({
-    name: "Ejaz"
-  });
-  
-  return (
-    <main>
-      <h1>Hello</h1>
-    </main>
-  );
+	return permanentRedirect("/welcome/start");
 }

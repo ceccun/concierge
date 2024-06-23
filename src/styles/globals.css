@@ -1,26 +1,104 @@
 @font-face {
-  font-family: 'DM Sans';
-  src: url('/fonts/DMSans-variable.woff2') format('woff2');
+	font-family: "DM Sans";
+	src: url("/fonts/DMSans-variable.woff2") format("woff2");
+}
+
+:root {
+	--font-family: "DM Sans";
+
+	--body-colour: #232d3f;
+	--body-contrast: #fff;
+	--body-differentiator: rgba(0, 0, 0, 0.3);
+
+	--primary-colour: rgb(0, 200, 173);
+	--primary-light: hsl(172, 100%, 43%);
+	--primary-dark: hsl(172, 100%, 35%);
+	--primary-contrast: #fff;
+
+	--secondary-colour: rgba(0, 200, 173, 0.1);
+	--secondary-light: rgba(0, 200, 173, 0.2);
+	--secondary-dark: rgba(0, 200, 173, 0.05);
+	--secondary-contrast: rgb(0, 200, 173);
 }
 
 html,
 body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+	padding: 0;
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+		Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+	background-color: var(--body-colour);
 }
 
-h1,h2,h3,h4,h5,h6,p {
-  font-family: 'DM Sans';
-  margin: 0;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+	color: var(--body-contrast);
+	font-family: var(--font-family);
+	margin: 0;
+}
+
+h1 {
+	font-size: 44px;
+}
+
+h3 {
+	font-size: 18px;
+}
+
+p {
+	font-size: 18px;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+	color: inherit;
+	text-decoration: none;
 }
 
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.button {
+	display: flex;
+	padding: 12px;
+	justify-content: space-between;
+	border-radius: 12px;
+	gap: 8px;
+	box-sizing: border-box;
+	font-family: var(--font-family);
+	font-size: 18px;
+	font-weight: 500;
+	border: 0;
+	align-items: center;
+}
+
+.primary-button {
+	background: var(--primary-colour);
+	color: var(--primary-contrast);
+}
+
+.primary-button:hover {
+	background: var(--primary-light);
+}
+
+.primary-button:active {
+	background: var(--primary-dark);
+}
+
+.secondary-button {
+	background: var(--secondary-colour);
+	color: var(--secondary-contrast);
+}
+
+.secondary-button:hover {
+	background: var(--secondary-light);
+}
+
+.secondary-button:active {
+	background: var(--secondary-dark);
 }

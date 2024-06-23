@@ -1,0 +1,23 @@
+.centre {
+	width: 100%;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.card {
+	width: 857px;
+	display: flex;
+	justify-content: space-between;
+	padding: 64px;
+	background-color: var(--body-differentiator);
+	border-radius: 14px;
+	flex-direction: top;
+}
+
+.miniHero {
+	display: flex;
+	gap: 16px;
+	flex-direction: column;
+}

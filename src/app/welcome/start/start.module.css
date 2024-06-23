@@ -1,0 +1,11 @@
+.buttonStrip {
+	display: flex;
+	justify-content: start;
+	gap: 8px;
+}
+
+.left {
+	display: flex;
+	gap: 32px;
+	flex-direction: column;
+}
