@@ -12,11 +12,6 @@ import {
 import { ButtonTypes } from "~/app/const/buttons";
 import cardStyles from "../card.module.css";
 import Link from "next/link";
-import {
-	HeadlessDropdownInput,
-	HeadlessTextInput,
-	NewFormField,
-} from "./inputs";
 import { useTranslations } from "next-intl";
 import { NewCallForm } from "./form";
 

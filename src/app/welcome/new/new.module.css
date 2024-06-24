@@ -36,3 +36,9 @@
 	flex-direction: column;
 	gap: 16px;
 }
+
+.fields {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}

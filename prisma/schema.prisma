@@ -11,10 +11,18 @@ datasource db {
 }
 
 model User {
-    id           String             @unique @default(uuid())
-    name         String
-    plan         SubscriptionModels @default(FREE)
-    invitedCalls CallParticipant[]
+    id     String             @unique @default(uuid())
+    name   String?
+    plan   SubscriptionModels @default(FREE)
+    calls  CallParticipant[]
+    tokens Token[]
+}
+
+model Token {
+    id     String  @unique @default(uuid())
+    secret String  @unique
+    User   User?   @relation(fields: [userId], references: [id])
+    userId String?
 }
 
 enum SubscriptionModels {

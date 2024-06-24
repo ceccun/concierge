@@ -11,6 +11,12 @@
 		"before_you_start": "Before you start",
 		"provide_information": "You need to provide some information before you start your call.",
 		"start": "Start",
-		"your_name": "Your name"
+		"your_name": "Your name",
+		"greeting": "Hey there, {name}",
+		"call_privacy": {
+			"anyone": "Anyone with the link can join",
+			"approval": "Approve every join request",
+			"invited": "Only those invited can join"
+		}
 	}
 }

@@ -13,10 +13,14 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	padding-left: 12px;
+	padding-inline-start: 12px;
 	padding-bottom: 12px;
 	padding-top: 12px;
-	padding-right: 0;
+	padding-inline-end: 0;
+}
+
+.field:focus-within {
+	background-color: var(--secondary-light);
 }
 
 .headlessInput {
@@ -25,10 +29,10 @@
 	border: 0;
 	background-color: transparent;
 	outline: 0;
-	padding-right: 12px;
+	padding-inline-end: 12px;
 	padding-top: 12px;
 	padding-bottom: 12px;
-	padding-left: 0px;
+	padding-inline-start: 0px;
 	color: var(--body-contrast);
 }
 
@@ -38,9 +42,16 @@
 	border: 0;
 	background-color: transparent;
 	outline: 0;
-	padding-right: 12px;
+	padding-inline-end: 12px;
 	padding-top: 12px;
 	padding-bottom: 12px;
-	padding-left: 0px;
+	padding-inline-start: 0px;
 	color: var(--body-contrast);
+}
+
+.form {
+	display: flex;
+	gap: 32px;
+	flex-direction: column;
+	width: 100%;
 }

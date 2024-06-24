@@ -7,45 +7,77 @@ import {
 	VideoIcon,
 	LockKeyholeIcon,
 } from "lucide-react";
-import { ButtonLink } from "~/app/_components/button";
+import { ButtonLink, Button } from "~/app/_components/button";
 import { ButtonTypes } from "~/app/const/buttons";
-import {
-	NewFormField,
-	HeadlessTextInput,
-	HeadlessDropdownInput,
-} from "./inputs";
+import { NewFormField } from "./inputs";
 import styles from "./new.module.css";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { CallPrivacy } from "~/app/const/calls";
+import fieldStyles from "./inputs.module.css";
 
 export function NewCallForm() {
 	const t = useTranslations("Index");
 	const [privacy, setPrivacy] = useState<CallPrivacy>(CallPrivacy.ANYONE);
 
-	return (
-		<>
-			<NewFormField image={<CircleUserRoundIcon />}>
-				<HeadlessTextInput fieldName={t("your_name")} />
-			</NewFormField>
+	interface NewCallFormElements extends FormData {
+		name: string;
+		call_privacy: CallPrivacy;
+	}
 
-			<NewFormField
-				image={
-					privacy == CallPrivacy.ANYONE ? (
-						<LockKeyholeOpenIcon />
-					) : (
-						<LockKeyholeIcon />
-					)
-				}
-			>
-				<HeadlessDropdownInput
-					items={{
-						[CallPrivacy.ANYONE]: "Anyone can join",
-						[CallPrivacy.INVITED]: "Only those invited",
-					}}
-					setValue={setPrivacy}
-				/>
-			</NewFormField>
+	function submit(event: FormEvent<HTMLFormElement>) {
+		event.preventDefault();
+		const formData = new FormData(
+			event.currentTarget
+		) as NewCallFormElements;
+		const form = Object.fromEntries(formData);
+		console.log({
+			name: form.name,
+			call_privacy: form.call_privacy,
+		});
+	}
+
+	return (
+		<form className={fieldStyles.form} onSubmit={submit}>
+			<div className={styles.fields}>
+				<NewFormField image={<CircleUserRoundIcon />}>
+					<input
+						required
+						name={"name"}
+						className={fieldStyles.headlessInput}
+						type={"text"}
+						placeholder={t("your_name")}
+					></input>
+				</NewFormField>
+
+				<NewFormField
+					image={
+						privacy == CallPrivacy.ANYONE ? (
+							<LockKeyholeOpenIcon />
+						) : (
+							<LockKeyholeIcon />
+						)
+					}
+				>
+					<select
+						name={"call_privacy"}
+						onChange={(e: ChangeEvent<HTMLSelectElement>) => {
+							setPrivacy(e.target.value as CallPrivacy);
+						}}
+						className={fieldStyles.select}
+					>
+						<option value={CallPrivacy.ANYONE}>
+							{t("call_privacy.anyone")}
+						</option>
+						<option value={CallPrivacy.APPROVAL}>
+							{t("call_privacy.approval")}
+						</option>
+						<option value={CallPrivacy.INVITED}>
+							{t("call_privacy.invited")}
+						</option>
+					</select>
+				</NewFormField>
+			</div>
 
 			<div className={styles.buttonStrip}>
 				<ButtonLink
@@ -53,10 +85,16 @@ export function NewCallForm() {
 					type={ButtonTypes.SECONDARY}
 					href={"start"}
 				></ButtonLink>
-				<ButtonLink image={<VideoIcon />} href={"new"}>
+
+				<Button
+					props={{
+						type: "submit",
+					}}
+					image={<VideoIcon />}
+				>
 					{t("start")}
-				</ButtonLink>
+				</Button>
 			</div>
-		</>
+		</form>
 	);
 }
