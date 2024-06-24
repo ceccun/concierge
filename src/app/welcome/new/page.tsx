@@ -1,9 +1,10 @@
-import { Button } from "~/app/_components/button";
+import { ButtonLink } from "~/app/_components/button";
 import styles from "./new.module.css";
 import {
 	ArrowLeftIcon,
 	CalendarPlus2Icon,
 	CircleUserRoundIcon,
+	LockKeyholeOpenIcon,
 	MonitorSmartphoneIcon,
 	TimerOffIcon,
 	VideoIcon,
@@ -11,8 +12,13 @@ import {
 import { ButtonTypes } from "~/app/const/buttons";
 import cardStyles from "../card.module.css";
 import Link from "next/link";
-import { NewFormField } from "./inputs";
+import {
+	HeadlessDropdownInput,
+	HeadlessTextInput,
+	NewFormField,
+} from "./inputs";
 import { useTranslations } from "next-intl";
+import { NewCallForm } from "./form";
 
 export default function New() {
 	const t = useTranslations("Index");
@@ -25,20 +31,7 @@ export default function New() {
 					<p>{t("provide_information")}</p>
 				</div>
 
-				<NewFormField image={<CircleUserRoundIcon />}>hi</NewFormField>
-
-				<div className={styles.buttonStrip}>
-					<Link href="start">
-						<Button
-							image={<ArrowLeftIcon />}
-							type={ButtonTypes.SECONDARY}
-						></Button>
-					</Link>
-
-					<Link href="new">
-						<Button image={<VideoIcon />}>{t("start")}</Button>
-					</Link>
-				</div>
+				<NewCallForm />
 			</div>
 			<div className={styles.right}>
 				<Feature

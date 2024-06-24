@@ -1,4 +1,4 @@
-import { Button } from "~/app/_components/button";
+import { Button, ButtonLink } from "~/app/_components/button";
 import styles from "./start.module.css";
 import { CalendarPlus2, CalendarPlus2Icon, VideoIcon } from "lucide-react";
 import { ButtonTypes } from "~/app/const/buttons";
@@ -18,9 +18,9 @@ export default function Start() {
 				</div>
 
 				<div className={styles.buttonStrip}>
-					<Link href="new">
-						<Button image={<VideoIcon />}>{t("new_call")}</Button>
-					</Link>
+					<ButtonLink href={"new"} image={<VideoIcon />}>
+						{t("new_call")}
+					</ButtonLink>
 					<Button
 						image={<CalendarPlus2Icon />}
 						type={ButtonTypes.SECONDARY}

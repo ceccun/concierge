@@ -1,8 +1,9 @@
 import "~/styles/globals.css";
 
 import { TRPCReactProvider } from "~/trpc/react";
-import { NextIntlClientProvider } from "next-intl";
+import { NextIntlClientProvider, useTranslations } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
+import { getLangDir } from "rtl-detect";
 
 export const metadata = {
 	title: "Concierge",
@@ -17,9 +18,10 @@ export default async function RootLayout({
 }) {
 	const locale = await getLocale();
 	const messages = await getMessages();
+	const direction = getLangDir(locale)
 
 	return (
-		<html lang={locale} dir={"rtl"}>
+		<html lang={locale} dir={direction}>
 			<body>
 				<TRPCReactProvider>
 					<NextIntlClientProvider messages={messages}>

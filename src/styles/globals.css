@@ -102,3 +102,15 @@ a {
 .secondary-button:active {
 	background: var(--secondary-dark);
 }
+
+input[type="text"] {
+	font-family: var(--font-family);
+	font-size: 18px;
+	font-weight: 500;
+}
+
+select {
+	font-family: var(--font-family);
+	font-size: 18px;
+	font-weight: 500;
+}
