@@ -3,6 +3,7 @@ import crypto from "crypto"
 
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 import { TRPCError } from "@trpc/server";
+import { validateLogin } from "../libs/authentication";
 
 export const userRouter = createTRPCRouter({
     create: publicProcedure
@@ -52,6 +53,28 @@ export const userRouter = createTRPCRouter({
             throw new TRPCError({
                 code: "NOT_FOUND",
             })
+        }
+    }),
+    update: publicProcedure.input(z.object({
+        name: z.string().min(1),
+    })).mutation(async ({ ctx, input }) => {
+        const name = input.name;
+        const authenticated = await validateLogin(ctx.db, ctx.headers);
+
+        if (authenticated.status) {
+            const user = authenticated.user;
+            if (name) {
+                if (user) {
+                    const dbCall = await ctx.db.user.update({
+                        where: {
+                            id: user.id
+                        },
+                        data: {
+                            name
+                        }
+                    })
+                }
+            }
         }
     })
 });

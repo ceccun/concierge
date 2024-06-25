@@ -53,7 +53,14 @@ model Call {
     type         CallType          @default(REGULAR)
     active       Boolean           @default(false)
     timeStarted  DateTime
+    privacy      CallPrivacy
     participants CallParticipant[]
+}
+
+enum CallPrivacy {
+    ANYONE
+    APPROVAL
+    INVITED
 }
 
 enum CallType {
