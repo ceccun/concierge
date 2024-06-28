@@ -6,9 +6,10 @@ import { CalendarPlus2Icon, VideoIcon } from "lucide-react";
 import { ButtonTypes } from "~/app/const/buttons";
 import cardStyles from "../card.module.css";
 import { useTranslations } from "next-intl";
-import { Suspense, use, useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
-import { api } from "~/trpc/react";
+import { User } from "~/app/const/user";
+import { checkToken, createUser } from "~/app/libs/authentication";
 
 export default function Start() {
 	return (
@@ -23,24 +24,34 @@ export default function Start() {
 function LeftSide() {
 	const t = useTranslations("Index");
 
-	// const [user, setUser] = useState<User | undefined>();
-	const user = api.user.view.useQuery();
-	const createUser = api.user.create.useMutation();
-
-	// checkOrCreateUser(setUser);
+	const [user, setUser] = useState<User | undefined>();
+	const [token, setToken] = useState<string | null>(null);
 
 	useEffect(() => {
-		if (user.failureReason?.data?.code == "NOT_FOUND") {
-			const ls = window.localStorage;
-			createUser.mutate(undefined, {
-				onSuccess: ({ token }) => {
-					ls.setItem("token", token);
+		checkToken(setToken);
+	}, []);
+
+	useEffect(() => {
+		const ls = window.localStorage;
+
+		if (token) {
+			fetch("/api/user/view", {
+				method: "GET",
+				headers: {
+					Authorization: token,
 				},
+			}).then((response) => {
+				if (response.ok) response.json().then((data) => setUser(data));
+				if (response.status == 403)
+					createUser((token: string) => {
+						ls.setItem("token", token);
+						setToken(token);
+					});
 			});
 		}
-	}, [user.failureReason]);
+	}, [token]);
 
-	if (!user.data) {
+	if (!user) {
 		return (
 			<div className={styles.left}>
 				<div className={cardStyles.miniHero}>
@@ -61,10 +72,10 @@ function LeftSide() {
 	return (
 		<div className={styles.left}>
 			<div className={cardStyles.miniHero}>
-				{user.data.name != null && (
-					<h1>{t("greeting", { name: user.data.name })}</h1>
+				{user.name != null && (
+					<h1>{t("greeting", { name: user.name })}</h1>
 				)}
-				{user.data.name == null && <h1>{t("product_name")}</h1>}
+				{user.name == null && <h1>{t("product_name")}</h1>}
 				<p>{t("tag_alert")}</p>
 			</div>
 

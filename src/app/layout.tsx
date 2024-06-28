@@ -1,6 +1,4 @@
 import "~/styles/globals.css";
-
-import { TRPCReactProvider } from "~/trpc/react";
 import { NextIntlClientProvider, useTranslations } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import { getLangDir } from "rtl-detect";
@@ -26,18 +24,16 @@ export default async function RootLayout({
 	return (
 		<html lang={locale} dir={direction}>
 			<body>
-				<TRPCReactProvider>
-					<NextIntlClientProvider messages={messages}>
-						<SkeletonTheme
-							baseColor="#464c56"
-							highlightColor="#858990"
-							inline={false}
-							enableAnimation={false}
-						>
-							{children}
-						</SkeletonTheme>
-					</NextIntlClientProvider>
-				</TRPCReactProvider>
+				<NextIntlClientProvider messages={messages}>
+					<SkeletonTheme
+						baseColor="#464c56"
+						highlightColor="#858990"
+						inline={false}
+						enableAnimation={false}
+					>
+						{children}
+					</SkeletonTheme>
+				</NextIntlClientProvider>
 			</body>
 		</html>
 	);

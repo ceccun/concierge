@@ -12,9 +12,11 @@ import { ButtonTypes } from "~/app/const/buttons";
 import { NewFormField } from "./inputs";
 import styles from "./new.module.css";
 import { useTranslations } from "next-intl";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { CallPrivacy } from "~/app/const/calls";
 import fieldStyles from "./inputs.module.css";
+import { checkToken, createUser } from "~/app/libs/authentication";
+import { User } from "~/app/const/user";
 
 export function NewCallForm() {
 	const t = useTranslations("Index");
@@ -37,6 +39,34 @@ export function NewCallForm() {
 		});
 	}
 
+	const [name, setName] = useState<string>("");
+	const [token, setToken] = useState<string | null>(null);
+
+	useEffect(() => {
+		checkToken(setToken);
+	}, []);
+
+	useEffect(() => {
+		const ls = window.localStorage;
+
+		if (token) {
+			fetch("/api/user/view", {
+				method: "GET",
+				headers: {
+					Authorization: token,
+				},
+			}).then((response) => {
+				if (response.ok)
+					response.json().then((data: User) => setName(data.name));
+				if (response.status == 403)
+					createUser((token: string) => {
+						ls.setItem("token", token);
+						setToken(token);
+					});
+			});
+		}
+	}, [token]);
+
 	return (
 		<form className={fieldStyles.form} onSubmit={submit}>
 			<div className={styles.fields}>
@@ -44,6 +74,7 @@ export function NewCallForm() {
 					<input
 						required
 						name={"name"}
+						defaultValue={name}
 						className={fieldStyles.headlessInput}
 						type={"text"}
 						placeholder={t("your_name")}
