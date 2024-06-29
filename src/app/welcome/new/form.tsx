@@ -21,6 +21,9 @@ import { User } from "~/app/const/user";
 export function NewCallForm() {
 	const t = useTranslations("Index");
 	const [privacy, setPrivacy] = useState<CallPrivacy>(CallPrivacy.ANYONE);
+	const [name, setName] = useState<string>("");
+	const [token, setToken] = useState<string | null>(null);
+	const [submitting, setSubmitting] = useState(false);
 
 	interface NewCallFormElements extends FormData {
 		name: string;
@@ -29,6 +32,7 @@ export function NewCallForm() {
 
 	function submit(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
+		setSubmitting(true);
 		const formData = new FormData(
 			event.currentTarget
 		) as NewCallFormElements;
@@ -37,10 +41,16 @@ export function NewCallForm() {
 			name: form.name,
 			call_privacy: form.call_privacy,
 		});
-	}
 
-	const [name, setName] = useState<string>("");
-	const [token, setToken] = useState<string | null>(null);
+		fetch("/api/call/create", {
+			method: "POST",
+			body: JSON.stringify({
+				privacy: form.call_privacy,
+			}),
+		}).then((response) => {
+			setSubmitting(false);
+		});
+	}
 
 	useEffect(() => {
 		checkToken(setToken);
@@ -120,7 +130,9 @@ export function NewCallForm() {
 				<Button
 					props={{
 						type: "submit",
+						disabled: submitting,
 					}}
+					inProgress={submitting}
 					image={<VideoIcon />}
 				>
 					{t("start")}

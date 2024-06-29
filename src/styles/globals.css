@@ -102,6 +102,11 @@ a {
 	outline: none;
 }
 
+.primary-button:disabled {
+	background: var(--secondary-colour);
+	color: var(--secondary-contrast);
+}
+
 .secondary-button {
 	background: var(--secondary-colour);
 	color: var(--secondary-contrast);
@@ -126,4 +131,16 @@ select {
 	font-family: var(--font-family);
 	font-size: 18px;
 	font-weight: 500;
+}
+
+.loading {
+	animation: spin 1.5s linear infinite;
+}
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
 }
