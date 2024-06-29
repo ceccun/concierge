@@ -12,11 +12,12 @@ import { ButtonTypes } from "~/app/const/buttons";
 import { NewFormField } from "./inputs";
 import styles from "./new.module.css";
 import { useTranslations } from "next-intl";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { CallPrivacy } from "~/app/const/calls";
+import { type ChangeEvent, type FormEvent, useEffect, useState } from "react";
 import fieldStyles from "./inputs.module.css";
 import { checkToken, createUser } from "~/app/libs/authentication";
-import { User } from "~/app/const/user";
+import { type User } from "~/app/const/user";
+import { CallPrivacy } from "@prisma/client";
+import { useRouter } from "next/navigation";
 
 export function NewCallForm() {
 	const t = useTranslations("Index");
@@ -24,13 +25,14 @@ export function NewCallForm() {
 	const [name, setName] = useState<string>("");
 	const [token, setToken] = useState<string | null>(null);
 	const [submitting, setSubmitting] = useState(false);
+	const router = useRouter();
 
 	interface NewCallFormElements extends FormData {
 		name: string;
 		call_privacy: CallPrivacy;
 	}
 
-	function submit(event: FormEvent<HTMLFormElement>) {
+	async function submit(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
 		setSubmitting(true);
 		const formData = new FormData(
@@ -42,14 +44,36 @@ export function NewCallForm() {
 			call_privacy: form.call_privacy,
 		});
 
-		fetch("/api/call/create", {
+		if (!token) {
+			return setSubmitting(false);
+		}
+
+		const updateName = await fetch("/api/user/update", {
 			method: "POST",
+			headers: {
+				authorization: token,
+			},
 			body: JSON.stringify({
-				privacy: form.call_privacy,
+				name: form.name,
 			}),
-		}).then((response) => {
-			setSubmitting(false);
 		});
+
+		if (updateName.ok) {
+			const callCreation = await fetch("/api/call/create", {
+				method: "POST",
+				headers: {
+					authorization: token,
+				},
+				body: JSON.stringify({
+					privacy: form.call_privacy,
+				}),
+			});
+
+			if (callCreation.ok) {
+				const data: { id: string } = await callCreation.json();
+				router.push(`/call/${data.id}`);
+			}
+		}
 	}
 
 	useEffect(() => {

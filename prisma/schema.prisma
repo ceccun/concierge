@@ -31,7 +31,7 @@ enum SubscriptionModels {
 }
 
 model CallParticipant {
-    id Int @id
+    id String @id @default(uuid())
 
     role   CallRoles @default(PARTICIPANT)
     User   User?     @relation(fields: [userId], references: [id])
