@@ -1,4 +1,4 @@
-import { CallPrivacy, CallRoles } from "@prisma/client"
+import { type CallPrivacy, CallRoles } from "@prisma/client"
 import { NextResponse } from "next/server";
 import { validateLogin } from "~/app/libs/authentication";
 import { db } from "~/app/libs/db";

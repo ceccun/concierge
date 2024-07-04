@@ -15,7 +15,7 @@ export const ButtonLink = ({
 }: {
 	children?: React.ReactNode;
 	image?: React.ReactNode;
-	type?: ButtonTypes.PRIMARY | ButtonTypes.SECONDARY;
+	type?: ButtonTypes;
 	href: string;
 	props?: AnchorHTMLAttributes<HTMLAnchorElement>;
 }) => {
@@ -36,7 +36,7 @@ export const Button = ({
 }: {
 	children?: React.ReactNode;
 	image?: React.ReactNode;
-	type?: ButtonTypes.PRIMARY | ButtonTypes.SECONDARY;
+	type?: ButtonTypes;
 	inProgress?: boolean;
 	props?: ButtonHTMLAttributes<HTMLButtonElement>;
 }) => {

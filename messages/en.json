@@ -17,6 +17,7 @@
 			"anyone": "Anyone with the link can join",
 			"approval": "Approve every join request",
 			"invited": "Only those invited can join"
-		}
+		},
+		"disconnect": "Disconnect"
 	}
 }

@@ -20,7 +20,10 @@
 	--secondary-dark: rgba(0, 200, 173, 0.05);
 	--secondary-contrast: rgb(0, 200, 173);
 
-	--bad: rgba(255, 0, 0, 1);
+	--bad: #c80000;
+	--bad-light: #db0000;
+	--bad-dark: #b40000;
+	--bad-contrast: white;
 }
 
 html,
@@ -90,12 +93,12 @@ a {
 	background: var(--primary-light);
 }
 
-.primary-button:focus-within {
+/* .primary-button:focus-within {
 	outline-color: var(--primary-light);
 	outline-offset: 2px;
 	outline-width: 2px;
 	outline-style: solid;
-}
+} */
 
 .primary-button:active {
 	background: var(--primary-dark);
@@ -119,6 +122,20 @@ a {
 
 .secondary-button:active {
 	background: var(--secondary-dark);
+}
+
+.negative-button {
+	background: var(--bad);
+	color: var(--bad-contrast);
+}
+
+.negative-button:hover,
+.negative-button:focus-within {
+	background: var(--bad-light);
+}
+
+.negative-button:active {
+	background: var(--bad-dark);
 }
 
 input[type="text"] {

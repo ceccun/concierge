@@ -1,0 +1,4 @@
+.buttonStrip {
+	display: flex;
+	gap: 8px;
+}

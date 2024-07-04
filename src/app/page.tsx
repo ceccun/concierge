@@ -1,4 +1,3 @@
-import { api } from "~/trpc/server";
 import { Button } from "./_components/button";
 import { CalendarPlus2Icon, VideoIcon } from "lucide-react";
 import { ButtonTypes } from "./const/buttons";
