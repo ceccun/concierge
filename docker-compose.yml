@@ -1,30 +1,36 @@
 # version: "3"
 
 services:
-  # concierge:
-  #   build: .
-  #   ports:
-  #     - "3000:3000"
-  #   networks:
-  #     - concierge
-  #   environment:
-  #     - DATABASE_URL=postgres://concierge:${POSTGRES_PASSWORD}@postgres:5432/concierge
-  #   container_name: concierge
-  #   hostname: concierge
-  #   restart: always
-  postgres:
-    ports:
-      - "5432:5432"
-    image: postgres
-    networks:
-      - concierge
-    environment:
-      POSTGRES_DB: concierge
-      POSTGRES_USER: concierge
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    container_name: postgres
-    hostname: postgres
-    restart: always
+    # concierge:
+    #   build: .
+    #   ports:
+    #     - "3000:3000"
+    #   networks:
+    #     - concierge
+    #   environment:
+    #     - DATABASE_URL=postgres://concierge:${POSTGRES_PASSWORD}@postgres:5432/concierge
+    #   container_name: concierge
+    #   hostname: concierge
+    #   restart: always
+    postgres:
+        ports:
+            - "5432:5432"
+        image: postgres
+        networks:
+            - concierge
+        environment:
+            POSTGRES_DB: concierge
+            POSTGRES_USER: concierge
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+        container_name: postgres
+        hostname: postgres
+        restart: always
+    valkey:
+        image: valkey/valkey
+        ports:
+            - "6379:6379"
+        networks:
+            - concierge
 
 networks:
-  concierge:
+    concierge:
