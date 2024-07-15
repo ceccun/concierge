@@ -1,3 +1,4 @@
+import { CallPrivacy } from "@prisma/client";
 import { NextResponse } from "next/server";
 import { validateLogin } from "~/app/libs/authentication";
 import { db } from "~/app/libs/db";
@@ -27,16 +28,26 @@ export const GET = async (req: Request) => {
     const call = await db.call.findFirst({
         where: {
             id: id,
-            participants: {
-                some: {
-                    User: {
-                        id: authenticated.user.id
+            OR: [
+                {
+                    OR: [{
+                        privacy: CallPrivacy.ANYONE
+                    }, {
+                        privacy: CallPrivacy.APPROVAL
+                    }]
+                },
+                {
+                    participants: {
+                        some: {
+                            User: {
+                                id: authenticated.user.id
+                            }
+                        }
                     }
                 }
-            }
+            ]
         },
         select: {
-            participants: true,
             privacy: true,
             active: true,
             timeStarted: true,

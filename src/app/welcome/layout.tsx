@@ -1,13 +1,9 @@
-import style from "./card.module.css";
+import { Card } from "../_components/card";
 
 export default function RootLayout({
 	children,
 }: {
 	children: React.ReactNode;
 }) {
-	return (
-		<div className={style.centre}>
-			<div className={style.card}>{children}</div>
-		</div>
-	);
+	return <Card>{children}</Card>;
 }

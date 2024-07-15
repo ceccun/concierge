@@ -4,7 +4,7 @@ import { Button, ButtonLink } from "~/app/_components/button";
 import styles from "./start.module.css";
 import { CalendarPlus2Icon, VideoIcon } from "lucide-react";
 import { ButtonTypes } from "~/app/const/buttons";
-import cardStyles from "../card.module.css";
+import cardStyles from "~/app/_components/card/card.module.css";
 import { useTranslations } from "next-intl";
 import { Suspense, useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";

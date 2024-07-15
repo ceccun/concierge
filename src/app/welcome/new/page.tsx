@@ -1,17 +1,6 @@
-import { ButtonLink } from "~/app/_components/button";
 import styles from "./new.module.css";
-import {
-	ArrowLeftIcon,
-	CalendarPlus2Icon,
-	CircleUserRoundIcon,
-	LockKeyholeOpenIcon,
-	MonitorSmartphoneIcon,
-	TimerOffIcon,
-	VideoIcon,
-} from "lucide-react";
-import { ButtonTypes } from "~/app/const/buttons";
-import cardStyles from "../card.module.css";
-import Link from "next/link";
+import { MonitorSmartphoneIcon, TimerOffIcon } from "lucide-react";
+import cardStyles from "~/app/_components/card/card.module.css";
 import { useTranslations } from "next-intl";
 import { NewCallForm } from "./form";
 

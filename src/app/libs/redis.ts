@@ -7,3 +7,6 @@ import { createClient } from "redis";
 export const redis = await createClient()
     .on('error', err => console.log('Redis Client Error', err))
     .connect();
+
+export const subscriberClient = await redis.duplicate().on('error', err => console.log('Redis Client Error', err))
+    .connect();

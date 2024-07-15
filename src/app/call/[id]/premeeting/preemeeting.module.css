@@ -1,0 +1,44 @@
+.buttonStrip {
+	display: flex;
+	justify-content: space-between;
+	align-items: stretch;
+	gap: 8px;
+}
+
+.buttonStrip button {
+	height: 100%;
+}
+
+.left {
+	display: flex;
+	gap: 32px;
+	flex-direction: column;
+	width: 377px;
+}
+
+.right {
+	display: flex;
+	flex-direction: column;
+	gap: 32px;
+	width: 224px;
+}
+
+.featureHeading {
+	color: var(--body-contrast);
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 8px;
+}
+
+.feature {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.fields {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}

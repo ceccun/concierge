@@ -18,6 +18,10 @@
 			"approval": "Approve every join request",
 			"invited": "Only those invited can join"
 		},
-		"disconnect": "Disconnect"
+		"disconnect": "Disconnect",
+		"join_this_call": "Join this call",
+		"provide_information_anyone": "You need to provide some information before you join this call.",
+		"provide_information_approval": "You need to provide some information before you request to join this call.",
+		"join": "Join"
 	}
 }
